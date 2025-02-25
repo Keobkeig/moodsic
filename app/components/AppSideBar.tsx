@@ -9,30 +9,62 @@ import {
     SidebarMenu,
     SidebarMenuButton,
   } from "@/components/ui/sidebar"
-import {Library, Plus, ArrowRight, PanelLeftClose, Search, List} from "lucide-react"
-
+import {Library, Plus, ArrowRight, PanelLeftClose, Search, List, Music} from "lucide-react"
+import Image from "next/image"
 export function AppSideBar() {
+    const playlists: SideBarPlayList[] = [
+        {
+            album_cover: "/path/to/thumbnail1.jpg",
+            album_name: "My Playlist",
+            pinned: true,
+            author: "Your Daily Mix"
+        },
+        {
+            album_cover: "/path/to/thumbnail2.jpg",
+            album_name: "My Playlist",
+            pinned: false,
+            author: "Discover Weekly"
+        }
+    ]
     return (
-        <Sidebar collapsible="icon">
-            <SidebarHeader title="MoodSic" />
+        <Sidebar className="bg-[#242424] flex flex-col h-full hidden lg:flex">
+            <SidebarHeader title="MoodSic"/>
             <SidebarContent>
                 {SideBarTop()}
                 {SideBarSearch()}
+                <SideBarMusicList playlists={playlists} />
             </SidebarContent>
             <SidebarFooter />
         </Sidebar>
     )
 }
 
+type SideBarPlayList = {
+    album_cover: string;
+    album_name: string;
+    author: string;
+    pinned: boolean;
+}
+
+function SideBarMusicList({ playlists }: { playlists: SideBarPlayList[] }) {
+    const playlist = [...playlists].sort((a,b) => {
+        if (a.pinned === b.pinned) return 0;
+        return a.pinned ? -1: 1;
+    })
+
+    return <SidebarGroup className="px-2 flex flex-col space-y-2 min-h-[32px]">
+    </SidebarGroup>
+}
+
 function SideBarSearch() {
-    return <SidebarGroup className="flex flex-row px-6 group-data-[state=collapsed]:hidden">
-        <SidebarMenuButton>
+    return <SidebarGroup className="flex flex-row px-6  group-data-[state=collapsed]:hidden">
+        <SidebarMenuButton className="flex items-center px-5">
             <a href="#">
                 <Search />
             </a>
         </SidebarMenuButton>
         <div className="ml-auto">
-            <SidebarMenuButton>
+            <SidebarMenuButton className="flex items-center px-4">
                 <a href="#" className="flex items-center gap-2">
                     <span>Recents</span>
                     <List />
@@ -65,7 +97,7 @@ function SideBarTop() {
         }
     ]
 
-    return <SidebarHeader className="rounded-lg bg-gray-100 gap-4 mx-auto w-11/12 pb-6">
+    return <SidebarHeader className="rounded-lg bg-[#242424] gap-4 mx-auto w-11/12 pb-6">
         <SidebarGroupContent>
             <SidebarMenu className="flex flex-row items-center justify-between w-full no-wrap p-3">
                 <div className="flex items-center gap-2">
@@ -73,7 +105,6 @@ function SideBarTop() {
                         <a href={library.url} className="flex items-center gap-2">
                             <library.icon className="flex-shrink-0 w-6 h-6" />
                             <span className="leading-none text-lg">{library.title}</span>
-
                         </a>
                     </SidebarMenuButton>
                 </div>
@@ -89,13 +120,12 @@ function SideBarTop() {
                 </div>
             </SidebarMenu>
 
-            <SidebarMenuButton className="flex items-center px-4">
-                <a href="#" className="rounded-lg flex items-center gap-2 bg-gray-200 p-2">
+            <SidebarMenuButton className="flex items-center px-4 hover:bg-[#282828] transition-colors">
+                <a href="#" className="rounded-lg flex items-center gap-2 p-1 ">
                     <PanelLeftClose className="flex-shrink-0 w-6 h-6" />
                     <span className="leading-none text-lg">Playlists</span>
                 </a>
             </SidebarMenuButton>
         </SidebarGroupContent>
-
     </SidebarHeader>
 }
