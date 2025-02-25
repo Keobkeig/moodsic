@@ -4,12 +4,11 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
   } from "@/components/ui/sidebar"
-import {Library, Plus, ArrowRight, PanelLeftClose, Search, List, Music} from "lucide-react"
+import {Library, Plus, ArrowRight, PanelLeftClose, Search, List} from "lucide-react"
 import Image from "next/image"
 export function AppSideBar() {
     const playlists: SideBarPlayList[] = [
@@ -47,12 +46,32 @@ type SideBarPlayList = {
 }
 
 function SideBarMusicList({ playlists }: { playlists: SideBarPlayList[] }) {
-    const playlist = [...playlists].sort((a,b) => {
+    const sortedPlaylists = [...playlists].sort((a,b) => {
         if (a.pinned === b.pinned) return 0;
         return a.pinned ? -1: 1;
     })
 
     return <SidebarGroup className="px-2 flex flex-col space-y-2 min-h-[32px]">
+        {sortedPlaylists.map((playlist, index) => (
+            <SidebarMenuButton key={index} className="w-full">
+                <a href="#" className="flex items-center gap-3 p-2 hover:bg-[#282828] rounded-md transition-colors">
+                    <Image 
+                        src={playlist.album_cover} 
+                        alt={playlist.album_name} 
+                        width={48} 
+                        height={48}
+                        className="rounded-md"
+                    />
+                    <div className="flex flex-col">
+                        <span className="text-sm font-medium">{playlist.album_name}</span>
+                        <span className="text-xs text-gray-400">{playlist.author}</span>
+                        {playlist.pinned && (
+                            <span className="text-xs text-gray-400">Pinned</span>
+                        )}
+                    </div>
+                </a>
+            </SidebarMenuButton>
+        ))}
     </SidebarGroup>
 }
 
