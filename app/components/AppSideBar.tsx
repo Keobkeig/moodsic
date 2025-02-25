@@ -7,29 +7,53 @@ import {
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
+    SidebarSeparator
   } from "@/components/ui/sidebar"
 import {Library, Plus, ArrowRight, PanelLeftClose, Search, List} from "lucide-react"
 import Image from "next/image"
+
 export function AppSideBar() {
     const playlists: SideBarPlayList[] = [
         {
-            album_cover: "/path/to/thumbnail1.jpg",
+            album_cover: "./public/window.svg",
             album_name: "My Playlist",
             pinned: true,
             author: "Your Daily Mix"
         },
         {
-            album_cover: "/path/to/thumbnail2.jpg",
+            album_cover: "./public/window.svg",
             album_name: "My Playlist",
             pinned: false,
             author: "Discover Weekly"
-        }
+        },
+        {
+            album_cover: "./public/window.svg",
+            album_name: "My Playlist",
+            pinned: false,
+            author: "Discover Weekly"
+        },        {
+            album_cover: "./public/window.svg",
+            album_name: "My Playlist",
+            pinned: false,
+            author: "Discover Weekly"
+        },        {
+            album_cover: "./public/window.svg",
+            album_name: "My Playlist",
+            pinned: false,
+            author: "Discover Weekly"
+        },        {
+            album_cover: "./public/window.svg",
+            album_name: "My Playlist",
+            pinned: false,
+            author: "Discover Weekly"
+        },
     ]
     return (
         <Sidebar className="bg-[#242424] flex flex-col h-full hidden lg:flex">
             <SidebarHeader title="MoodSic"/>
             <SidebarContent>
                 {SideBarTop()}
+                <SidebarSeparator />
                 {SideBarSearch()}
                 <SideBarMusicList playlists={playlists} />
             </SidebarContent>
@@ -51,10 +75,10 @@ function SideBarMusicList({ playlists }: { playlists: SideBarPlayList[] }) {
         return a.pinned ? -1: 1;
     })
 
-    return <SidebarGroup className="px-2 flex flex-col space-y-2 min-h-[32px]">
+    return <SidebarGroup className="px-2 flex flex-col space-y-2">
         {sortedPlaylists.map((playlist, index) => (
-            <SidebarMenuButton key={index} className="w-full">
-                <a href="#" className="flex items-center gap-3 p-2 hover:bg-[#282828] rounded-md transition-colors">
+            <SidebarMenuButton key={index} className="w-full h-[64px] px-4">
+                <a href="#" className="flex items-center gap-3 p-2 rounded-md transition-colors h-[64px] w-full">
                     <Image 
                         src={playlist.album_cover} 
                         alt={playlist.album_name} 
@@ -64,10 +88,12 @@ function SideBarMusicList({ playlists }: { playlists: SideBarPlayList[] }) {
                     />
                     <div className="flex flex-col">
                         <span className="text-sm font-medium">{playlist.album_name}</span>
-                        <span className="text-xs text-gray-400">{playlist.author}</span>
-                        {playlist.pinned && (
-                            <span className="text-xs text-gray-400">Pinned</span>
-                        )}
+                        <div className="flex flex-row">
+                            {playlist.pinned && (
+                                    <span className="text-xs text-gray-400 px-1">📌·</span>
+                            )}
+                            <span className="text-xs text-gray-400"> {playlist.author}</span>
+                        </div>
                     </div>
                 </a>
             </SidebarMenuButton>
