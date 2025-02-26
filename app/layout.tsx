@@ -20,12 +20,12 @@ export const metadata: Metadata = {
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>
-        <SidebarProvider>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
+      <body className="h-full bg-black">
+        <SidebarProvider className="flex h-full">
           <AppSideBar />
-          <main>
-            <SidebarTrigger />
+          <SidebarTrigger />
+          <main className="h-full flex-1 overflow-y-auto py-2">
             {children}
           </main>
         </SidebarProvider>

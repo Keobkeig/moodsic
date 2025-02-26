@@ -29,7 +29,7 @@ export function AppSideBar() {
         },
     ]
     return (
-        <Sidebar className="bg-[#141414] flex flex-col h-full hidden lg:flex rounded-lg">
+        <Sidebar variant="floating" className="bg-[#141414] flex flex-col h-full hidden lg:flex rounded-lg">
             <SidebarHeader title="MoodSic"/>
             <SidebarContent className="bg-[#242424] rounded-lg w-[95%] mx-auto">
                 {SideBarTop()}
