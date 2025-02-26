@@ -15,49 +15,28 @@ import Image from "next/image"
 export function AppSideBar() {
     const playlists: SideBarPlayList[] = [
         {
-            album_cover: "./public/window.svg",
+            album_cover: "/playlist_cover.jpeg",
             album_name: "My Playlist",
             pinned: true,
             author: "Your Daily Mix"
         },
         {
-            album_cover: "./public/window.svg",
-            album_name: "My Playlist",
-            pinned: false,
-            author: "Discover Weekly"
-        },
-        {
-            album_cover: "./public/window.svg",
-            album_name: "My Playlist",
-            pinned: false,
-            author: "Discover Weekly"
-        },        {
-            album_cover: "./public/window.svg",
-            album_name: "My Playlist",
-            pinned: false,
-            author: "Discover Weekly"
-        },        {
-            album_cover: "./public/window.svg",
-            album_name: "My Playlist",
-            pinned: false,
-            author: "Discover Weekly"
-        },        {
-            album_cover: "./public/window.svg",
+            
+            album_cover: "/playlist_cover.jpeg",
             album_name: "My Playlist",
             pinned: false,
             author: "Discover Weekly"
         },
     ]
     return (
-        <Sidebar className="bg-[#242424] flex flex-col h-full hidden lg:flex">
+        <Sidebar className="bg-[#141414] flex flex-col h-full hidden lg:flex rounded-lg">
             <SidebarHeader title="MoodSic"/>
-            <SidebarContent>
+            <SidebarContent className="bg-[#242424] rounded-lg w-[95%] mx-auto">
                 {SideBarTop()}
                 <SidebarSeparator />
                 {SideBarSearch()}
                 <SideBarMusicList playlists={playlists} />
             </SidebarContent>
-            <SidebarFooter />
         </Sidebar>
     )
 }
@@ -75,16 +54,17 @@ function SideBarMusicList({ playlists }: { playlists: SideBarPlayList[] }) {
         return a.pinned ? -1: 1;
     })
 
-    return <SidebarGroup className="px-2 flex flex-col space-y-2">
+    return <SidebarGroup className="px-2 flex flex-col space-y-2 rounded-lg">
         {sortedPlaylists.map((playlist, index) => (
             <SidebarMenuButton key={index} className="w-full h-[64px] px-4">
                 <a href="#" className="flex items-center gap-3 p-2 rounded-md transition-colors h-[64px] w-full">
                     <Image 
-                        src={playlist.album_cover} 
+                        src={playlist.album_cover}
                         alt={playlist.album_name} 
                         width={48} 
                         height={48}
-                        className="rounded-md"
+                        //add a triangle over the image when hovered
+                        className="rounded-md hover:brightness-50 hover:scale-105 transition-transform"
                     />
                     <div className="flex flex-col">
                         <span className="text-sm font-medium">{playlist.album_name}</span>
@@ -142,13 +122,13 @@ function SideBarTop() {
         }
     ]
 
-    return <SidebarHeader className="rounded-lg bg-[#242424] gap-4 mx-auto w-11/12 pb-6">
+    return <SidebarHeader className="rounded-lg bg-[#242424] mx-auto w-11/12">
         <SidebarGroupContent>
-            <SidebarMenu className="flex flex-row items-center justify-between w-full no-wrap p-3">
+            <SidebarMenu className="flex flex-row items-center justify-between w-full no-wrap p-2">
                 <div className="flex items-center gap-2">
-                    <SidebarMenuButton key={library.title} className="flex items-center">
-                        <a href={library.url} className="flex items-center gap-2">
-                            <library.icon className="flex-shrink-0 w-6 h-6" />
+                    <SidebarMenuButton key={library.title} className="flex items-center h-[64px]">
+                        <a href={library.url} className="flex items-center">
+                            <library.icon className="flex-shrink-0 w-9 h-9" />
                             <span className="leading-none text-lg">{library.title}</span>
                         </a>
                     </SidebarMenuButton>
@@ -156,7 +136,7 @@ function SideBarTop() {
 
                 <div className="flex items-center group-data-[state=collapsed]:hidden">
                     {sideBarLogoRow.map((item) => <SidebarMenuButton key={item.title}>
-                        <a href={item.url}>
+                        <a href={item.url} className="">
                             <item.icon />
                             <span>{item.title}</span>
                         </a>
@@ -165,9 +145,8 @@ function SideBarTop() {
                 </div>
             </SidebarMenu>
 
-            <SidebarMenuButton className="flex items-center px-4 hover:bg-[#282828] transition-colors">
-                <a href="#" className="rounded-lg flex items-center gap-2 p-1 ">
-                    <PanelLeftClose className="flex-shrink-0 w-6 h-6" />
+            <SidebarMenuButton className="flex items-center px-4 hover:bg-[#242424] transition-colors">
+                <a href="#" className="flex items-center gap-2 p-2 bg-[#383838] hover:bg-[#242424] transition-colors rounded-lg">
                     <span className="leading-none text-lg">Playlists</span>
                 </a>
             </SidebarMenuButton>
