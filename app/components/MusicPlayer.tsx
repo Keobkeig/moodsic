@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Shuffle, SkipBack, Play, SkipForward, Repeat, Maximize2, Volume2 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
 
 const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -74,6 +75,17 @@ const MusicPlayer = () => {
 
       {/* Right controls */}
       <div className="flex items-center justify-end w-1/4 gap-3">
+
+        <BackgroundGradient className="rounded-[12px] p-4   dark:bg-zinc-900"> 
+          <button className="text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="16" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </button>
+        </BackgroundGradient>
+       
         <button className="text-gray-400 hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
