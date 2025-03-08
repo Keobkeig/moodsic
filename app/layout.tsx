@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSideBar } from "./components/AppSideBar"
 import "./globals.css";
+import MusicPlayer from "./components/MusicPlayer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {children}
           </main>
         </SidebarProvider>
+        <MusicPlayer />
       </body>
     </html>
   );

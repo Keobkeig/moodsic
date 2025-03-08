@@ -1,4 +1,5 @@
 import Header from './components/Header';
+import MainPage from './components/MainPage';
 
 export default function Home() {
   
@@ -11,9 +12,7 @@ export default function Home() {
       overflow-hidden
       overflow-y-auto
     ">
-      <Header>
-        <p>Hello</p>
-      </Header>
+      <MainPage />
     </div>
   )
 }
